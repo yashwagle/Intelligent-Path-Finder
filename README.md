@@ -9,7 +9,7 @@ All the points are not at the same elevation. The elevation and
 the pixel size are determined by the ![National Elevation Dataset](http://www.sciencebase.gov/catalog/item/4f70a58ce4b058caae3f8ddb).
 Including the elevation the park looks some like this:
 
-![alt text](/testcases/normal/terrain.gif)
+![alt text](/terrain.gif)
 
 
 
