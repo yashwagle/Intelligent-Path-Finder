@@ -209,6 +209,12 @@ def get_image(imageName):
 
 
 def parse_fall(image):
+    '''
+    Convert the image to represent fall if the pixel is white i.e. it represents easy moving forest
+    convert the pixels around it to (255, 102, 204) with reduced speed
+    :param image: matrix with each element represents a tuple of rbg colors
+    :return: None the matrix is changed inplace
+    '''
     xmax, ymax = image.size
     #fall color = 255, 102, 204
     for i in range(xmax):
@@ -225,6 +231,11 @@ def parse_fall(image):
 
 
 def parse_winter(image):
+    '''
+    convert water pixels to ice which have a distance less than 6 pixels to land mass using BFS
+    :param image:matrix with each element represents a tuple of rbg colors
+    :return: None the matrix is changed inplace
+    '''
     xmax, ymax = image.size
     #ice color = 165, 242, 243
     border = set()
@@ -267,6 +278,12 @@ def parse_winter(image):
 
 
 def parse_spring(image, elevation):
+    '''
+     Convert the image to represent spring: if a land pixel is within 15 pixels and of a water body and does not
+     have more than one meter of elevation from the water body convert the pixel to mud represented by (255, 0, 0)
+     :param image: matrix with each element represents a tuple of rbg colors
+     :return: None the matrix is changed inplace
+     '''
     xmax, ymax = image.size
     # mud color = 255, 0, 0
     mud_color = (255, 0, 0)
@@ -316,6 +333,11 @@ def parse_spring(image, elevation):
 
 
 def get_elevation(filename):
+    '''
+    read the elevation file
+    :param filename: filepath of the elevation
+    :return: matrix representing the elevation of each pixel on the image
+    '''
     elevation = []
     with open(filename) as f:
         for line in f:
@@ -325,6 +347,14 @@ def get_elevation(filename):
 
 
 def draw_path(node, image, inputPoints, draw):
+    '''
+    Draw path between the inputPoints each inputPoint is a list specifying the x and y coordinate
+    :param node: the last point in inputPoints
+    :param image: the image
+    :param inputPoints: the list of points
+    :param draw: pillow object to draw the data
+    :return: total distance and image
+    '''
     total_distance = 0
     for p in inputPoints:
         draw.ellipse((p[0]-1, p[1]-1, p[0]+1, p[1]+1), fill=(148, 0, 211), outline=(148, 0, 211))
