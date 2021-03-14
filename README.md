@@ -1,4 +1,12 @@
 # Intelligent-Path-Finder
+Implementation of the A-star algorithm to find the most efficient
+path between two points in the Mendon Ponds Park. The map of the park
+is as follows
+
+![alt text](/testcases/normal/terrain.png)
+
+
+
 
 
 
