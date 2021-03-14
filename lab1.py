@@ -29,6 +29,9 @@ SPEED_DICTIONARY ={
 BEST_SPEED = 10
 
 class Node:
+    '''
+    Represents a point in the path with x,y,z coordinates, color of the point and the previous point
+    '''
     def __init__(self, X, Y, Z, color, parent):
         self.X = X
         self.Y = Y
@@ -46,6 +49,12 @@ class Node:
         self.parent = parentNode
 
     def getHueristic(self, destination):
+        '''
+        Get the heuristic distance of a destination point from the current point
+        the heuristic distance is the des
+        :param destination:
+        :return:
+        '''
         return get_distance(self, destination)/BEST_SPEED
 
 
@@ -55,6 +64,11 @@ class Node:
         return (self.X, self.Y)
 
     def __eq__(self, other):
+        '''
+        Checks if the other point is equal to the current point
+        :param other: object of point class
+        :return: boolean
+        '''
         if other == None:
             return False
         return self.X == other.X and self.Y == other.Y
@@ -63,11 +77,24 @@ class Node:
         return str(self.X) + ", " + str(self.Y) + ", " + str(self.Z)
 
     def __lt__(self, other):
+        '''
+        returns the lesser point out of two
+        :param other: object of point class
+        :return: the lesser object
+        '''
         if self.X < other.X:
             return self
         return other
 
 def add_to_queue(queue, point, visited, destination):
+    '''
+    Add a point to the priority
+    :param queue:
+    :param point:
+    :param visited:
+    :param destination:
+    :return:
+    '''
     if point.getCoordinates() not in visited:
         heapq.heappush(queue, (point.getHueristic(destination) + point.cost,point))
 
@@ -162,9 +189,20 @@ def A_Star(StartX, StartY, EndX, EndY, elevation, image, parent, season):
 
 
 def get_distance(Node1, Node2):
+    '''
+    Distance between two points
+    :param Node1: point1 on the map
+    :param Node2: point2 on the map
+    :return: float the distance between them
+    '''
     return math.sqrt(((Node1.X-Node2.X)*X_PIXEL_DISTANCE)**2 + ((Node1.Y - Node2.Y)*Y_PIXEL_DISTANCE)**2 + (Node1.Z - Node2.Z)**2)
 
 def get_image(imageName):
+    '''
+    Converts the image to matrix and returns the matrix
+    :param imageName: path of the image
+    :return: matrix representation of the image
+    '''
     matrix = []
     image = Image.open(imageName).convert("RGB",matrix)
     return image
