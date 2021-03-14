@@ -14,7 +14,8 @@ Including the elevation the park looks some like this:
 ![alt text](/terrain.gif)
 
 The elevation data can be found [here](../testcases/mpp.txt).
-
+The map presented is for summer and changes based on the seasons.
+The changes are explained below
 
 # Design
 In my implementation I try to minimize the time required to move
@@ -54,12 +55,17 @@ go from the last point to the first point.
 ## Seasons
 
 ### Winter
-First, the water pixels which are next to land are found, 
+In winter, the waters can freeze. 
+Any water within seven pixels of non-water is safe to walk on.
+To deal with this first, the water pixels which are next to land are found, 
 next BFS is applied to find the water pixels that are within 
 seven pixels of the border pixels.
 
 ### Spring
-First, the land pixels next to water are found. 
+In spring Any pixels within fifteen pixels of water that can be 
+reached from a water pixel without gaining more 
+than one meter of elevation (total) are now underwater
+To deal with this first, the land pixels next to water are found. 
 Then BFS is applied, but the entry in the queue also 
 contains the height of the water. Hence if a pixel is 
 at a height greater than 1 meter then that pixel is 
@@ -67,8 +73,12 @@ ignored and not colored.
 
 
 ### Fall
-The pixels which are next to easy moving forests are found a
-nd are colored pink. 
+In the fall, leaves fall. In the park, what happens is that 
+paths through the woods can become covered and hard to follow.
+So, for fall, the time  for any paths through (that is, adjacent to)
+easy movement forest (but only those paths) should increase,
+Hence, pixels which are next to easy moving forests are found 
+and are colored pink. 
 
 
 
